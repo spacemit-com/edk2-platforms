@@ -825,6 +825,10 @@
       #
       FdtLib|EmbeddedPkg/Library/FdtLib/FdtLib.inf
   }
+  EmbeddedPkg/Drivers/DtPlatformDxe/DtPlatformDxe.inf {
+    <LibraryClasses>
+      DtPlatformDtbLoaderLib|Silicon/Spacemit/K3/Library/K3DtPlatformDtbLoaderLib/K3DtPlatformDtbLoaderLib.inf
+  }
 !endif # ACPI_ENABLE
 
   # Device tree for K3

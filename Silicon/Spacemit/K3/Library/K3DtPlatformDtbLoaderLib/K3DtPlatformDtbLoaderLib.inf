@@ -1,0 +1,46 @@
+## @file
+#  K3 DtPlatformDtbLoaderLib — load the vendor Linux DTB from
+#  the firmware volume or filesystem.
+#
+#  Copyright (c) 2026, Spacemit Corporation. All rights reserved.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION    = 0x0001001B
+  BASE_NAME      = K3DtPlatformDtbLoaderLib
+  FILE_GUID      = a3c1f2d0-82b4-4e9f-9c16-7d5a8e01f3b7
+  MODULE_TYPE    = DXE_DRIVER
+  VERSION_STRING = 1.0
+  LIBRARY_CLASS  = DtPlatformDtbLoaderLib|DXE_DRIVER
+
+[Sources]
+  K3DtPlatformDtbLoaderLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  EmbeddedPkg/EmbeddedPkg.dec
+  Silicon/Spacemit/SpacemitPkg.dec
+  Platform/RISC-V/PlatformPkg/RiscVPlatformPkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  DebugLib
+  DxeServicesLib
+  FdtLib
+  MemoryAllocationLib
+  PcdLib
+  UefiBootServicesTableLib
+  UefiLib
+
+[Guids]
+  gEfiFileInfoGuid  ## CONSUMES
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid  ## CONSUMES
+  gEfiFdtFixupProtocolGuid          ## CONSUMES
+
+[Pcd]
+  gUefiRiscVPlatformPkgTokenSpaceGuid.PcdBootHartId  ## CONSUMES
