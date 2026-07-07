@@ -118,12 +118,18 @@ GetRuntimeFdtBase (
 {
   CONST VOID  *FdtBase;
 
-  FdtBase = GetFdtBaseFromConfigTable ();
+  //
+  // Prefer the HOB — it always contains the firmware DTB (K3.dts)
+  // with the pinctrl group definitions.  The config table may hold
+  // the vendor Linux DTB (installed by DtPlatformDxe) which uses
+  // different pinctrl naming.
+  //
+  FdtBase = GetFdtBaseFromGuidHob ();
   if (FdtBase != NULL) {
     return FdtBase;
   }
 
-  return GetFdtBaseFromGuidHob ();
+  return GetFdtBaseFromConfigTable ();
 }
 
 STATIC
