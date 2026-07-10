@@ -29,6 +29,7 @@
 #define SKU_ID_DEFAULT  0
 #define SKU_ID_COM260   1
 #define SKU_ID_FML13V05 2
+#define SKU_ID_EVB      3
 
 STATIC
 CONST VOID *
@@ -116,6 +117,9 @@ SkuSelectDxeEntryPoint (
   } else if (AsciiStrStr (Model, "k3-deepcomputing-fml13v05") != NULL) {
     SkuId = SKU_ID_FML13V05;
     DEBUG ((DEBUG_INFO, "%a: SKU set to FML13V05 (%u)\n", __func__, SkuId));
+  } else if (AsciiStrStr (Model, "k3_evb") != NULL) {
+    SkuId = SKU_ID_EVB;
+    DEBUG ((DEBUG_INFO, "%a: SKU set to EVB (%u)\n", __func__, SkuId));
   } else {
     SkuId = SKU_ID_DEFAULT;
     DEBUG ((DEBUG_INFO, "%a: SKU set to DEFAULT (%u)\n", __func__, SkuId));
