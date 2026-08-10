@@ -34,11 +34,13 @@
 
 STATIC
 EFI_STATUS
-SetSku (
+SetSkuAndSignalDone (
   IN UINTN  SkuId
   )
 {
-  UINTN  SelectedSkuId;
+  EFI_HANDLE  Handle;
+  EFI_STATUS  Status;
+  UINTN       SelectedSkuId;
 
   LibPcdSetSku (SkuId);
   SelectedSkuId = LibPcdGetSku ();
@@ -53,7 +55,23 @@ SetSku (
     return EFI_UNSUPPORTED;
   }
 
-  return EFI_SUCCESS;
+  Handle = NULL;
+  Status = gBS->InstallProtocolInterface (
+                  &Handle,
+                  &gSpacemitK3SkuSelectDoneProtocolGuid,
+                  EFI_NATIVE_INTERFACE,
+                  NULL
+                  );
+  if (EFI_ERROR (Status)) {
+    DEBUG ((
+      DEBUG_ERROR,
+      "%a: Failed to install SKU-select-done protocol: %r\n",
+      __func__,
+      Status
+      ));
+  }
+
+  return Status;
 }
 
 STATIC
@@ -120,25 +138,25 @@ SkuSelectDxeEntryPoint (
   Fdt = GetFdtBase ();
   if (Fdt == NULL) {
     DEBUG ((DEBUG_WARN, "%a: DTB not found, using DEFAULT SKU\n", __func__));
-    return SetSku (SKU_ID_DEFAULT);
+    return SetSkuAndSignalDone (SKU_ID_DEFAULT);
   }
 
   RootOffset = FdtPathOffset (Fdt, "/");
   if (RootOffset < 0) {
     DEBUG ((DEBUG_WARN, "%a: DTB root node not found, using DEFAULT SKU\n", __func__));
-    return SetSku (SKU_ID_DEFAULT);
+    return SetSkuAndSignalDone (SKU_ID_DEFAULT);
   }
 
   Model = FdtGetProp (Fdt, RootOffset, "model", &Len);
   if ((Model == NULL) || (Len <= 0)) {
     DEBUG ((DEBUG_WARN, "%a: DTB model property not found, using DEFAULT SKU\n", __func__));
-    return SetSku (SKU_ID_DEFAULT);
+    return SetSkuAndSignalDone (SKU_ID_DEFAULT);
   }
 
   ModelLength = AsciiStrnLenS (Model, (UINTN)Len);
   if ((ModelLength == 0) || (ModelLength == (UINTN)Len)) {
     DEBUG ((DEBUG_WARN, "%a: DTB model property is invalid, using DEFAULT SKU\n", __func__));
-    return SetSku (SKU_ID_DEFAULT);
+    return SetSkuAndSignalDone (SKU_ID_DEFAULT);
   }
 
   DEBUG ((DEBUG_INFO, "%a: DTB model = \"%a\"\n", __func__, Model));
@@ -171,5 +189,5 @@ SkuSelectDxeEntryPoint (
   FreePool (UpperModel);
 
 SetSelectedSku:
-  return SetSku (SkuId);
+  return SetSkuAndSignalDone (SkuId);
 }

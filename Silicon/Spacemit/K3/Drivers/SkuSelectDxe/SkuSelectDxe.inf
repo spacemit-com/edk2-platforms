@@ -40,5 +40,8 @@
   gFdtHobGuid      ## CONSUMES
   gFdtTableGuid    ## CONSUMES
 
+[Protocols]
+  gSpacemitK3SkuSelectDoneProtocolGuid  ## PRODUCES
+
 [Depex]
   TRUE
