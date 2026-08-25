@@ -178,7 +178,7 @@ SkuSelectDxeEntryPoint (
   } else if (AsciiStrStr (UpperModel, "FML13V05") != NULL) {
     SkuId = SKU_ID_FML13V05;
     DEBUG ((DEBUG_INFO, "%a: SKU set to FML13V05 (%u)\n", __func__, SkuId));
-  } else if (AsciiStrStr (UpperModel, "k3_evb") != NULL) {
+  } else if (AsciiStrStr (UpperModel, "K3_EVB") != NULL) {
     SkuId = SKU_ID_EVB;
     DEBUG ((DEBUG_INFO, "%a: SKU set to EVB (%u)\n", __func__, SkuId));
   } else {
