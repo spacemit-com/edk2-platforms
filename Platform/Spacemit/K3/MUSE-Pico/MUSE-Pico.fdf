@@ -186,6 +186,16 @@ INF  RuleOverride = ACPITABLE Platform/Spacemit/K3/AcpiTables/K3AcpiTables.inf
 
 !else
 INF  Silicon/RISC-V/ProcessorPkg/Universal/FdtDxe/FdtDxe.inf
+INF  EmbeddedPkg/Drivers/DtPlatformDxe/DtPlatformDxe.inf
+
+#
+# Vendor Linux DTB embedded in firmware (like ACPI tables on x86).
+# DtPlatformDxe loads this via K3DtPlatformDtbLoaderLib and installs
+# it in the EFI configuration table.
+#
+FILE FREEFORM = 7901d61e-f64d-4989-835f-3ebe50c83c99 {
+    SECTION RAW = Platform/Spacemit/K3/DeviceTree/k3_com260_ifx.dtb
+}
 !endif # ACPI_ENABLE
 
 # system hardware module
