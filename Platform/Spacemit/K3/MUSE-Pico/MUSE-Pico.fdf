@@ -15,8 +15,8 @@
 #                                      |                           | 0x1000
 #                               0x1000 +---------------------------+
 #                                      | FvMain Image (Compressed) | FLASH_FV_MAIN_SIZE
-#                                      |                           | 0x001FF000
-#                             0x200000 +---------------------------+
+#                                      |                           | 0x002FF000
+#                             0x300000 +---------------------------+
 #                                      | NVRAM Area=               |
 #                                      | Variable + FTW Working +  | NVRAM_AREA_SIZE
 #                                      | FTW Spare                 |
@@ -40,12 +40,12 @@
 DEFINE BLOCK_SIZE        = 0x1000
 
 DEFINE FW_BASE_ADDRESS   = 0x102000000
-DEFINE FW_SIZE           = 0x002C0000
-DEFINE FW_BLOCKS         = 0x2C0
+DEFINE FW_SIZE           = 0x003C0000
+DEFINE FW_BLOCKS         = 0x3C0
 
 DEFINE FVMAIN_ADDRESS    = 0x00211000
 DEFINE FVMAIN_OFFSET     = 0x00000000
-DEFINE FVMAIN_SIZE       = 0x001FF000
+DEFINE FVMAIN_SIZE       = 0x002FF000
 
 DEFINE VARS_OFFSET             = $(FVMAIN_OFFSET) + $(FVMAIN_SIZE)
 DEFINE VARS_SIZE               = 0x40000
