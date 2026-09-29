@@ -74,5 +74,17 @@
             loadables = "uefi";
             fdt = "fdt_3";
         };
+
+        conf_4 {
+            description = "k3_com260_tq";
+            loadables = "uefi";
+            fdt = "fdt_2";
+        };
+
+        conf_5 {
+            description = "k3_com260_ifx_tq";
+            loadables = "uefi";
+            fdt = "fdt_2";
+        };
     };
 };
